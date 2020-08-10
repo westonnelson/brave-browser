@@ -90,7 +90,7 @@ pipeline {
                                                 credentials('brave-builds-github-token-for-pr-builder')
                                                 github('brave/devops', 'https')
                                             }
-                                            branch('mplesa-temp')
+                                            branch('master')
                                         }
                                     }
                                     scriptPath('jenkins/jobs/browser/Jenkinsfile')
