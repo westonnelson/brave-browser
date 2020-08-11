@@ -94,7 +94,6 @@ pipeline {
                                         }
                                     }
                                     scriptPath("jenkins/jobs/browser/pr-brave-browser-${PLATFORM}.Jenkinsfile")
-                                    lightweight()
                                 }
                             }
                         }
