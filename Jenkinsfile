@@ -90,10 +90,10 @@ pipeline {
                                                 credentials('brave-builds-github-token-for-pr-builder')
                                                 github('brave/devops', 'https')
                                             }
-                                            branch('master')
+                                            branch('mplesa-ci-pipeline-platform-split')
                                         }
                                     }
-                                    scriptPath('jenkins/jobs/browser/Jenkinsfile')
+                                    scriptPath("jenkins/jobs/browser/pr-brave-browser-${PLATFORM}.Jenkinsfile")
                                     lightweight()
                                 }
                             }
