@@ -14,6 +14,8 @@ pipeline {
         booleanParam(name: 'DISABLE_SCCACHE', defaultValue: false)
         booleanParam(name: 'SKIP_SIGNING', defaultValue: true)
         booleanParam(name: 'DCHECK_ALWAYS_ON', defaultValue: true)
+        string(name: 'NODE_LABEL', value: ''),
+        string(name: 'SLACK_NOTIFY', value: '')
     }
     stages {
         stage('build') {
@@ -80,7 +82,8 @@ pipeline {
                                 booleanParam('DCHECK_ALWAYS_ON', true)
                                 booleanParam('RUN_NETWORK_AUDIT', false)
                                 stringParam('BRANCH', '${CHANGE_BRANCH}')
-                                stringParam('PLATFORM', '${PLATFORM}')
+                                stringParam('NODE_LABEL', '${NODE_LABEL}')
+                                stringParam('SLACK_NOTIFY', '${SLACK_NOTIFY}')
                             }
                             definition {
                                 cpsScm {
@@ -90,7 +93,7 @@ pipeline {
                                                 credentials('brave-builds-github-token-for-pr-builder')
                                                 github('brave/devops', 'https')
                                             }
-                                            branch('mplesa-ci-pipeline-platform-split')
+                                            branch('mplesa-jenkins-ci-pipeline-improvements')
                                         }
                                     }
                                     scriptPath("jenkins/jobs/browser/pr-brave-browser-${PLATFORM}.Jenkinsfile")
@@ -109,7 +112,8 @@ pipeline {
                         booleanParam(name: 'DCHECK_ALWAYS_ON', value: params.DCHECK_ALWAYS_ON),
                         booleanParam(name: 'RUN_NETWORK_AUDIT', value: RUN_NETWORK_AUDIT),
                         string(name: 'BRANCH', value: CHANGE_BRANCH),
-                        string(name: 'PLATFORM', value: PLATFORM)
+                        string(name: 'NODE_LABEL', value: NODE_LABEL),
+                        string(name: 'SLACK_NOTIFY', value: SLACK_NOTIFY)
                     ]
 
                     currentBuild.result = build(job: PIPELINE_NAME, parameters: params, propagate: false).result
